@@ -1,0 +1,101 @@
+#welcomeRoot {
+    /* Sửa thành ../images/ */
+    -fx-background-image: url("../images/welcomeviewbackground.jpg");
+    -fx-background-size: cover;
+}
+/*
+  Style cho các nút menu (Vô hình khi bình thường)
+  Bạn sẽ gán class="menu-button" cho các nút của mình
+*/
+.menu-button {
+    /* --- 1. TRẠNG THÁI MẶC ĐỊNH (VÔ HÌNH) --- */
+    -fx-background-color: transparent; /* Nền trong suốt */
+    -fx-border-color: rgba(255, 255, 255, 0.3); /* Viền trắng mờ (để người chơi lờ mờ thấy) */
+    -fx-border-width: 1px;
+    -fx-text-fill: rgba(255, 255, 255, 0.5); /* Chữ trắng mờ */
+
+    /* Hiệu ứng chuyển động mượt */
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.menu-button:hover {
+    /* --- 2. KHI DI CHUỘT VÀO (SÁNG LÊN) --- */
+    -fx-border-color: white; /* Viền trắng rõ */
+    -fx-text-fill: white; /* Chữ trắng rõ */
+
+    /* Thêm hiệu ứng hào quang nhẹ */
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 10, 0, 0, 0);
+}
+
+.menu-button:pressed {
+    /* --- 3. KHI NHẤN VÀO (SÁNG RỰC) --- */
+    -fx-background-color: white; /* Nền trắng sáng */
+    -fx-text-fill: black; /* Chữ đen để đọc được */
+
+    /* Hào quang sáng rực */
+    -fx-effect: dropshadow(gaussian, white, 20, 0.8, 0, 0);
+}
+/** 1. Thanh đỡ (Paddle) **/
+#paddleView {
+    /* Sử dụng dải màu tuyến tính (linear-gradient) từ trên xuống.
+      Tạo cảm giác 3D/kim loại sáng ở trên và tối ở dưới.
+    */
+    -fx-fill: linear-gradient(from 0% 0% to 0% 100%, #d0d0d0, #606060);
+
+    /* Thêm viền đen và bo góc nhẹ cho mềm mại */
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+    -fx-arc-width: 10;
+    -fx-arc-height: 10;
+}
+
+
+/** 2. Quả bóng (Ball) **/
+#ballView {
+    /*
+      Sử dụng dải màu tỏa tròn (radial-gradient) để tạo giả lập 3D.
+      Tâm là "điểm nóng" (sáng nhất) và mờ dần ra ngoài.
+      'center 30% 30%' -> đặt điểm sáng ở góc trên bên trái
+    */
+    -fx-fill: radial-gradient(
+        center 30% 30%, /* Vị trí điểm sáng */
+        radius 60%,     /* Bán kính của dải màu */
+        #ffffcc,     /* Màu sáng nhất (gần trắng) */
+        #ffcc00      /* Màu vàng chính */
+    );
+
+    /* Thêm 1 đường viền mỏng màu sậm để nổi bật */
+    -fx-stroke: #b0a000;
+    -fx-stroke-width: 1;
+}
+
+
+/** 3. Gạch (Bricks) **/
+
+/* Đây là style CƠ BẢN cho TẤT CẢ các viên gạch */
+.brick {
+    -fx-stroke: black; /* Viền đen */
+    -fx-stroke-width: 1.5;
+    -fx-arc-width: 8;  /* Bo góc */
+    -fx-arc-height: 8;
+
+    /* ĐÃ TẮT HIỆU ỨNG NÀY ĐI VÌ NÓ GÂY LAG VÀ LỖI VẬT LÝ
+      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 2, 2);
+    */
+}
+
+/* Gạch 1 máu (ví dụ: màu Xanh dương) */
+.brick-health1 {
+    -fx-fill: linear-gradient(from 0% 0% to 0% 100%, #4da6ff, #005cb3);
+}
+
+/* Gạch 2 máu (ví dụ: màu Xanh lá) */
+.brick-health2 {
+    -fx-fill: linear-gradient(from 0% 0% to 0% 100%, #80ff80, #00b300);
+}
+
+/* Gạch không thể phá (ví dụ: màu Xám kim loại) */
+.brick-unbreakable {
+    -fx-fill: linear-gradient(from 0% 0% to 0% 100%, #c0c0c0, #505050);
+    -fx-stroke: #202020;
+}
