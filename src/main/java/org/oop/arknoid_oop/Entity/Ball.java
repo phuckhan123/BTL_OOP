@@ -1,136 +1,124 @@
-// File: src/main/java/org/oop/arknoid_oop/Models/Ball.java
 package org.oop.arknoid_oop.Entity;
 
-import javafx.scene.shape.Circle;
+import javafx.geometry.Bounds;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+/**
+ * Ball backed by an ImageView (loads /images/ball.jpg by default).
+ * Coordinates used by the rest of the game use the node's layoutX/layoutY
+ * as top-left of the image; several helper methods expose center-based
+ * coordinates to match existing controller code.
+ */
 public class Ball extends GameObject {
 
-    private double dx;
-    private double dy;
-    private double speed;
+    private ImageView imageView;
+    private double dx = 0.0;
+    private double dy = 0.0;
 
-    // ✨ 1. SỬA HÀM KHỞI TẠO (Constructor)
-    // Xóa dx, dy khỏi tham số. Bóng sẽ bắt đầu đứng yên.
-    public Ball(Circle view) {
-        super(view);
-        this.dx = 0;
-        this.dy = 0;
-        this.speed = 0;
+    public Ball(ImageView imageView) {
+        
+        super(imageView);
+        this.imageView = imageView;
+
+        // Ensure the image is present; if not, load the bundled JPG
+        try {
+            if (this.imageView.getImage() == null) {
+                Image img = new Image(getClass().getResource("/images/ball.png").toExternalForm());
+                this.imageView.setImage(img);
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to load ball image: " + e.getMessage());
+        }
+
+        // Default size (can be overridden in FXML). Keep it small.
+        if (this.imageView.getFitWidth() == 0) this.imageView.setFitWidth(16);
+        if (this.imageView.getFitHeight() == 0) this.imageView.setFitHeight(16);
+        this.imageView.setPreserveRatio(true);
+        this.imageView.setVisible(true);
+        System.out.println("Ball fitWidth=" + imageView.getFitWidth());
+System.out.println("Ball fitHeight=" + imageView.getFitHeight());
+
     }
 
-    public Circle getCircleView() {
-        return (Circle) view;
+    public ImageView getImageView() {
+        return imageView;
     }
 
+    // center-based helpers (controller expects center coordinates)
     public double getRadius() {
-        // Lấy bán kính từ view
-        return getCircleView().getRadius();
+        return imageView.getFitWidth() / 2.0;
     }
 
-    // Di chuyển bóng
-    public void move() {
-        view.setLayoutX(getX() + dx);
-        view.setLayoutY(getY() + dy);
-    }
-    // Tự kiểm tra va chạm tường
-    public void checkWallCollision(double sceneWidth, double sceneHeight) {
-        double radius = getCircleView().getRadius();
-        // Viền trái/phải
-        if (getX() - radius <= 0 || getX() + radius >= sceneWidth) {
-            dx *= -1;
-        }
-        // Viền trên
-        if (getY() - radius <= 0) {
-            dy *= -1;
-        }
+    public double getX() {
+        return imageView.getLayoutX() + getRadius();
     }
 
-    // Kiểm tra rơi ra ngoài
-    public boolean isOutOfBottom(double sceneHeight) {
-        return getY() + getCircleView().getRadius() > sceneHeight;
+    public double getY() {
+        return imageView.getLayoutY() + getRadius();
     }
 
-    public void bounceY() {
-        dy *= -1;
+    public void setPosition(double centerX, double centerY) {
+        imageView.setLayoutX(centerX - getRadius());
+        imageView.setLayoutY(centerY - getRadius());
     }
 
-    public void bounceX() {
-        dx *= -1;
+    public Bounds getBounds() {
+        return imageView.getBoundsInParent();
     }
 
-    public void stop() {
-        dx = 0;
-        dy = 0;
-    }
-    public void setPosition(double x, double y) {
-        view.setLayoutX(x);
-        view.setLayoutY(y);
-    }
-
-    // ✨ 3. THÊM HÀM MỚI: Dùng để ra lệnh "phóng" hoặc "dừng"
     public void setVelocity(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
-        // Tính toán lại tốc độ tổng (quan trọng cho logic nảy Arkanoid)
-        this.speed = Math.sqrt(dx * dx + dy * dy);
     }
+
+    public void stop() {
+        this.dx = 0;
+        this.dy = 0;
+    }
+
+    public void move() {
+        imageView.setLayoutX(imageView.getLayoutX() + dx);
+        imageView.setLayoutY(imageView.getLayoutY() + dy);
+    }
+
+    public void checkWallCollision(double sceneWidth, double sceneHeight) {
+        double left = imageView.getLayoutX();
+        double top = imageView.getLayoutY();
+        double right = left + imageView.getFitWidth();
+
+        if (left <= 0 && dx < 0) {
+            dx = -dx;
+            imageView.setLayoutX(0);
+        } else if (right >= sceneWidth && dx > 0) {
+            dx = -dx;
+            imageView.setLayoutX(sceneWidth - imageView.getFitWidth());
+        }
+
+        if (top <= 0 && dy < 0) {
+            dy = -dy;
+            imageView.setLayoutY(0);
+        }
+    }
+
+    public boolean isOutOfBottom(double sceneHeight) {
+        // Consider the ball out when its top is beyond the scene height
+        return imageView.getLayoutY() > sceneHeight;
+    }
+
     public void calculatePaddleBounce(Paddle paddle) {
-        // 1. Lấy tâm quả bóng
-        double ballCenterX = getX();
-        // 2. Lấy tâm của paddle
-        double paddleCenterX = paddle.getX() + paddle.getWidth() / 2;
-        // 3. Tính vị trí va chạm tương đối (từ -1.0 đến +1.0)
-        double intersectX = ballCenterX - paddleCenterX;
-        double normalizedIntersect = intersectX / (paddle.getWidth() / 2);
-
-        // Đảm bảo giá trị không vượt quá -1.0 hoặc 1.0
-        if (normalizedIntersect > 1.0) normalizedIntersect = 1.0;
-        if (normalizedIntersect < -1.0) normalizedIntersect = -1.0;
-
-        // 4. Tính góc nảy mới (bằng Radian)
-        //    Góc 75 độ (5 * PI / 12) là góc nảy tối đa
-        double maxBounceAngle = 5 * Math.PI / 12; // 75 độ
-        double bounceAngle = normalizedIntersect * maxBounceAngle;
-
-        // 5. Tính dx và dy mới dựa trên tốc độ (speed) và góc nảy
-        //    LƯU Ý: Phải dùng speed, vì speed đã được set khi launchBall()
-        dy = -speed * Math.cos(bounceAngle);
-        dx = speed * Math.sin(bounceAngle);
+        double paddleCenter = paddle.getX() + paddle.getWidth() / 2.0;
+        double offset = (getX() - paddleCenter) / (paddle.getWidth() / 2.0);
+        // Scale horizontal velocity by offset; keep vertical speed upwards
+        this.dx = 4 * offset;
+        this.dy = -Math.abs(this.dy == 0 ? 3.0 : this.dy);
     }
+
     public void resolveBrickCollision(Brick brick, double overlapWidth, double overlapHeight) {
-
-        // Nếu không có va chạm (lỗi hiếm)
-        if (overlapWidth < 0 || overlapHeight < 0) return;
-        // So sánh kích thước vùng lấn
         if (overlapWidth < overlapHeight) {
-            // Lấn theo chiều ngang ÍT HƠN -> Va chạm ngang
-            // 1. Đẩy lùi bóng ra khỏi gạch (theo chiều ngang)
-            //    dx là hướng VỪA MỚI va chạm (hướng CŨ)
-            if (dx > 0) {
-                // Đang đi sang PHẢI -> đẩy lùi về TRÁI một khoảng overlapWidth
-                setPosition(getX() - overlapWidth, getY());
-            } else {
-                // Đang đi sang TRÁI -> đẩy lùi về PHẢI một khoảng overlapWidth
-                setPosition(getX() + overlapWidth, getY());
-            }
-
-            // 2. Đổi hướng ngang
-            bounceX();
-
+            this.dx = -this.dx; // horizontal collision
         } else {
-            // Lấn theo chiều dọc ÍT HƠN (hoặc bằng) -> Va chạm dọc
-            // 1. Đẩy lùi bóng ra khỏi gạch (theo chiều dọc)
-            //    dy là hướng VỪA MỚI va chạm (hướng CŨ)
-            if (dy > 0) {
-                // Đang đi XUỐNG -> đẩy lùi LÊN TRÊN một khoảng overlapHeight
-                setPosition(getX(), getY() - overlapHeight);
-            } else {
-                // Đang đi LÊN TRÊN -> đẩy lùi XUỐNG một khoảng overlapHeight
-                setPosition(getX(), getY() + overlapHeight);
-            }
-
-            // 2. Đổi hướng dọc
-            bounceY();
+            this.dy = -this.dy; // vertical collision
         }
     }
 }

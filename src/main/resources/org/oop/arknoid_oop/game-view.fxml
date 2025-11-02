@@ -2,7 +2,7 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Circle?>
+  <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
@@ -12,8 +12,8 @@
     <!-- Thanh paddle -->
     <Rectangle fx:id="paddleView" fill="lightblue" height="15" layoutX="250.0" layoutY="354.0" width="100" />
 
-    <!-- Quả bóng -->
-    <Circle fx:id="ballView" fill="yellow" layoutX="300.0" layoutY="345.0" radius="8" />
+  <!-- Quả bóng -->
+  <ImageView fx:id="ballImage" layoutX="300.0" layoutY="345.0" fitWidth="16" fitHeight="16" preserveRatio="true" pickOnBounds="true" />
 
     <!-- Vùng chứa gạch -->
     <Pane fx:id="brickContainer" prefHeight="300" prefWidth="800">

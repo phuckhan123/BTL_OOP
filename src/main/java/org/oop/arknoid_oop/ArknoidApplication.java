@@ -3,8 +3,6 @@ package org.oop.arknoid_oop;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,5 +23,8 @@ public class ArknoidApplication extends Application {
         stage.setTitle("Arknoid Game");
         stage.setScene(welcomeScene);
         stage.show();
+    }
+    public static void main(String[] args) {
+        launch(); // 🔹 Đây là nơi chương trình thật sự bắt đầu
     }
 }

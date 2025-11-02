@@ -1,10 +1,10 @@
 // File: src/main/java/org/oop/arknoid_oop/Models/Brick.java
 package org.oop.arknoid_oop.Entity;
 
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 
-import java.awt.*;
 
 public class Brick extends GameObject {
 
@@ -35,26 +35,22 @@ public class Brick extends GameObject {
         return isDestroyed();
     }
     public void updateAppearance() {
-        Rectangle rectView = getRectView();
-
-        // Xóa tất cả các "lớp" cũ
-        rectView.getStyleClass().clear();
-
-        // Thêm "lớp" chung cho mọi viên gạch
-        rectView.getStyleClass().add("brick");
-
-        // Thêm "lớp" cụ thể dựa trên máu
-        if (isUnbreakable()) {
-            // Sẽ khớp với .brick-unbreakable trong CSS
-            rectView.getStyleClass().add("brick-unbreakable");
-        } else if (health == 2) {
-            // Sẽ khớp với .brick-health2 trong CSS
-            rectView.getStyleClass().add("brick-health2");
-        } else if (health == 1) {
-            // Sẽ khớp với .brick-health1 trong CSS
-            rectView.getStyleClass().add("brick-health1");
-        }
+    Rectangle rectView = getRectView();
+        //thêm ảnh cho các loại gạch
+    if (isUnbreakable()) {
+        Image img = new Image(getClass().getResource("/images/Bricku.jpg").toExternalForm());
+        rectView.setFill(new ImagePattern(img));
+    } else if (health == 2) {
+        Image img = new Image(getClass().getResource("/images/Brickhealth2.jpg").toExternalForm());
+        rectView.setFill(new ImagePattern(img));
+    } else if (health == 1) {
+        Image img = new Image(getClass().getResource("/images/Brickhealth1.jpg").toExternalForm());
+        rectView.setFill(new ImagePattern(img));
+    } else {
+        // Nếu bị phá hủy thì làm trong suốt
+        rectView.setFill(null);
     }
+}
     // Bạn có thể thêm 'int health' ở đây nếu muốn
     // ✨ THÊM HÀM NÀY
     public Rectangle getRectView() {

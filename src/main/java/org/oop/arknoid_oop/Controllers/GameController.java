@@ -1,5 +1,6 @@
 // File: GameController.java
 package org.oop.arknoid_oop.Controllers;
+import javafx.scene.image.ImageView;
 
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
@@ -36,7 +37,7 @@ public class GameController {
     private Rectangle paddleView; // Tên cũ: paddle
 
     @FXML
-    private Circle ballView; // Tên cũ: ball
+    private ImageView ballImage;
 
     @FXML
     private Text livesText;
@@ -80,15 +81,33 @@ public class GameController {
 
     @FXML
     public void initialize() {
+        
 
-        paddle = new Paddle(paddleView, 6.0);
-        ball = new Ball(ballView);
+            // Set up the ball image before creating Ball instance
+            ballImage.setVisible(true);
+            ballImage.setOpacity(1.0);
+            ballImage.setSmooth(true);
+            ballImage.setCache(true);
+            ballImage.toFront(); // Ensure ball is drawn on top
+
+        paddle = new Paddle(paddleView, 3.0);
+        ball = new Ball(ballImage);
+
+        // Diagnostic log to help confirm ball image is loaded and positioned
+        try {
+            System.out.println("[DEBUG] ballImage.getImage() = " + (ballImage.getImage() != null));
+            System.out.println("[DEBUG] ballImage layoutX,Y = " + ballImage.getLayoutX() + "," + ballImage.getLayoutY());
+            System.out.println("[DEBUG] ballImage fitW,H = " + ballImage.getFitWidth() + "," + ballImage.getFitHeight());
+        } catch (Exception e) {
+            System.err.println("[DEBUG] error inspecting ballImage: " + e.getMessage());
+        }
 
         livesText.setText("Lives: " + lives);
-
+        
         // ✨ 3. Bỏ createBricks(), gọi loadLevel()
         // createBricks(); // Bỏ dòng này
         loadLevel(currentLevel);
+       
 
         resetBallToPaddle();
         startGameLoop();
@@ -217,7 +236,7 @@ public class GameController {
     // ✨ 6. THÊM HÀM MỚI: Phóng bóng
     private void launchBall() {
         ballLaunched = true;
-        ball.setVelocity(0, -6.0); // Phóng bóng (bạn có thể đổi dx, dy tùy ý)
+        ball.setVelocity(0, -3.0); // Phóng bóng (bạn có thể đổi dx, dy tùy ý)
     }
 
     // ✨ 7. THÊM HÀM MỚI: Reset bóng về paddle
@@ -308,17 +327,25 @@ public class GameController {
         List<Brick> toRemove = new ArrayList<>();
         for (Brick brick : bricks) {
             if (ball.getBounds().intersects(brick.getBounds())) {
-                // 1. Lấy "hình" (shape)
-                Circle ballShape = ball.getCircleView();
-                Rectangle brickShape = brick.getRectView();
+                // 1. Lấy "hình" (shape) - use image/bounds directly from objects
 
                 // 2. Tính vùng giao nhau (overlap)
-                Shape intersection = Shape.intersect(ballShape, brickShape);
-                Bounds overlapBounds = intersection.getBoundsInLocal();
-                double overlapWidth = overlapBounds.getWidth();
-                double overlapHeight = overlapBounds.getHeight();
-                // 3. Gọi hàm xử lý (Đây là hàm chúng ta sẽ sửa)
-                ball.resolveBrickCollision(brick, overlapWidth, overlapHeight);
+                Bounds ballBounds = ball.getImageView().getBoundsInParent();
+                Bounds brickBounds = brick.getRectView().getBoundsInParent();
+
+                if (ballBounds.intersects(brickBounds)) {
+                    double overlapWidth = Math.min(
+                        ballBounds.getMaxX(), brickBounds.getMaxX()
+                    ) - Math.max(ballBounds.getMinX(), brickBounds.getMinX());
+
+                    double overlapHeight = Math.min(
+                        ballBounds.getMaxY(), brickBounds.getMaxY()
+                    ) - Math.max(ballBounds.getMinY(), brickBounds.getMinY());
+
+                    ball.resolveBrickCollision(brick, overlapWidth, overlapHeight);
+                    // ... phần xử lý gạch sau đó giữ nguyên
+                }
+
                 // ✨ 2. SỬA LOGIC XỬ LÝ GẠCH
                 if (brick.isUnbreakable()) {
                     // Nếu là gạch bất tử, chỉ nảy bóng và thoát

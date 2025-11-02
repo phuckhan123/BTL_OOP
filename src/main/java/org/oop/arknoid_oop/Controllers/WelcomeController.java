@@ -18,12 +18,13 @@ public class WelcomeController {
     @FXML
     public void onStart() {
         try {
-            FXMLLoader loader = new FXMLLoader(ArknoidApplication.class.getResource("game-view.fxml"));
+            
+            FXMLLoader loader = new FXMLLoader(ArknoidApplication.class.getResource("/game-view.fxml"));
             Scene gameScene = new Scene(loader.load());
             GameController controller = loader.getController();
             controller.initScene(gameScene);
 
-            // ✨ SỬA LỖI COMMENT: 'mainScene' -> 'gameScene'
+            // Load CSS file from resources
             URL cssUrl = ArknoidApplication.class.getResource("/css/mainStyle.css");
             if (cssUrl != null) {
                 gameScene.getStylesheets().add(cssUrl.toExternalForm());
@@ -36,7 +37,7 @@ public class WelcomeController {
             stage.setTitle("Arknoid Game");
 
             // ✨ SỬA LỖI COMMENT: Cách tải Image đúng
-            URL iconUrl = ArknoidApplication.class.getResource("icons/book_icon.png");
+            URL iconUrl = ArknoidApplication.class.getResource("/icons/book_icon.png");
             if (iconUrl != null) {
                 Image image = new Image(iconUrl.toExternalForm());
                 stage.getIcons().add(image);
@@ -56,6 +57,7 @@ public class WelcomeController {
             // Lấy và đóng cửa sổ WELCOME (currentStage)
             Stage currentStage = (Stage) startButton.getScene().getWindow();
             currentStage.close();
+
 
         } catch (Exception e) {
             e.printStackTrace();
