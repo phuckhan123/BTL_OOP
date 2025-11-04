@@ -90,7 +90,7 @@ public class GameController {
             ballImage.setCache(true);
             ballImage.toFront(); // Ensure ball is drawn on top
 
-        paddle = new Paddle(paddleView, 3.0);
+        paddle = new Paddle(paddleView, 5.0);
         ball = new Ball(ballImage);
 
         // Diagnostic log to help confirm ball image is loaded and positioned
@@ -236,7 +236,7 @@ public class GameController {
     // ✨ 6. THÊM HÀM MỚI: Phóng bóng
     private void launchBall() {
         ballLaunched = true;
-        ball.setVelocity(0, -3.0); // Phóng bóng (bạn có thể đổi dx, dy tùy ý)
+        ball.setVelocity(0, -6.0); // Phóng bóng (bạn có thể đổi dx, dy tùy ý)
     }
 
     // ✨ 7. THÊM HÀM MỚI: Reset bóng về paddle

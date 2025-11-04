@@ -107,13 +107,24 @@ System.out.println("Ball fitHeight=" + imageView.getFitHeight());
     }
 
     public void calculatePaddleBounce(Paddle paddle) {
-        double paddleCenter = paddle.getX() + paddle.getWidth() / 2.0;
-        double offset = (getX() - paddleCenter) / (paddle.getWidth() / 2.0);
-        // Scale horizontal velocity by offset; keep vertical speed upwards
-        this.dx = 4 * offset;
-        this.dy = -Math.abs(this.dy == 0 ? 3.0 : this.dy);
-    }
 
+        double currentSpeed = Math.sqrt(dx * dx + dy * dy);
+        final double speed = (currentSpeed == 0) ? 6.0 : currentSpeed;
+        double ballCenterX = getX();
+
+        double paddleCenterX = paddle.getX() + paddle.getWidth() / 2;
+        // 5. Tính vị trí va chạm tương đối (từ -1.0 đến +1.0)
+        double intersectX = ballCenterX - paddleCenterX;
+        double normalizedIntersect = intersectX / (paddle.getWidth() / 2);
+        // Đảm bảo giá trị không vượt quá -1.0 hoặc 1.0
+        if (normalizedIntersect > 1.0) normalizedIntersect = 1.0;
+        if (normalizedIntersect < -1.0) normalizedIntersect = -1.0;
+        // 6. Tính góc nảy mới (bằng Radian)
+        double maxBounceAngle = 5 * Math.PI / 12; // 75 độ
+        double bounceAngle = normalizedIntersect * maxBounceAngle;
+        dy = -speed * Math.cos(bounceAngle);
+        dx = speed * Math.sin(bounceAngle);
+    }
     public void resolveBrickCollision(Brick brick, double overlapWidth, double overlapHeight) {
         if (overlapWidth < overlapHeight) {
             this.dx = -this.dx; // horizontal collision
