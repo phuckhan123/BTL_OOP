@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
 import org.oop.arknoid_oop.Entity.Ball;
 import org.oop.arknoid_oop.Entity.Brick;
 import org.oop.arknoid_oop.Entity.Paddle;
+import org.oop.arknoid_oop.Entity.SoundManager;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -81,7 +82,7 @@ public class GameController {
 
     @FXML
     public void initialize() {
-        
+            SoundManager.getInstance().playMusic();
 
             // Set up the ball image before creating Ball instance
             ballImage.setVisible(true);
@@ -300,9 +301,9 @@ public class GameController {
     private void handleBallMovement() {
         ball.move();
         ball.checkWallCollision(SCENE_WIDTH, SCENE_HEIGHT);
-
         // Kiểm tra rơi ra ngoài
         if (ball.isOutOfBottom(SCENE_HEIGHT)) {
+            SoundManager.getInstance().playSound("deaths");
             lives--; // Trừ mạng
             livesText.setText("Lives: " + lives);
 
@@ -349,9 +350,12 @@ public class GameController {
                 // ✨ 2. SỬA LOGIC XỬ LÝ GẠCH
                 if (brick.isUnbreakable()) {
                     // Nếu là gạch bất tử, chỉ nảy bóng và thoát
+                    SoundManager.getInstance().playSound("brickUnbreakable");
+                    brick.playHitEffect();
                     break;
                 }
                 // Gạch nhận sát thương
+                SoundManager.getInstance().playSound("brickBreak");
                 boolean destroyed = brick.takeHit();
                 if (destroyed) {
                     // Nếu gạch bị phá hủy

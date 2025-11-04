@@ -88,14 +88,17 @@ System.out.println("Ball fitHeight=" + imageView.getFitHeight());
         double right = left + imageView.getFitWidth();
 
         if (left <= 0 && dx < 0) {
+            SoundManager.getInstance().playSound("bounce");
             dx = -dx;
             imageView.setLayoutX(0);
         } else if (right >= sceneWidth && dx > 0) {
+            SoundManager.getInstance().playSound("bounce");
             dx = -dx;
             imageView.setLayoutX(sceneWidth - imageView.getFitWidth());
         }
 
         if (top <= 0 && dy < 0) {
+            SoundManager.getInstance().playSound("bounce");
             dy = -dy;
             imageView.setLayoutY(0);
         }

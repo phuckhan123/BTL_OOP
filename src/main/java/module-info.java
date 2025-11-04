@@ -3,6 +3,7 @@ module org.oop.arknoid_oop {
     requires transitive javafx.fxml;
     requires transitive javafx.graphics;
     requires java.desktop;
+    requires javafx.media;
 
     opens org.oop.arknoid_oop to javafx.fxml;
     exports org.oop.arknoid_oop;
