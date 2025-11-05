@@ -9,11 +9,6 @@
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.oop.arknoid_oop.Controllers.GameController">
 
 
-    <!-- Thanh paddle -->
-    <Rectangle fx:id="paddleView" fill="lightblue" height="15" layoutX="250.0" layoutY="354.0" width="100" />
-
-  <!-- Quả bóng -->
-  <ImageView fx:id="ballImage" layoutX="300.0" layoutY="345.0" fitWidth="16" fitHeight="16" preserveRatio="true" pickOnBounds="true" />
 
     <!-- Vùng chứa gạch -->
     <Pane fx:id="brickContainer" prefHeight="300" prefWidth="800">
@@ -22,5 +17,6 @@
     <!-- Text hiển thị điểm -->
     <Text fx:id="scoreText" fill="Black" layoutX="21.0" layoutY="27.0" text="Score: 0" />
     <Text fx:id="livesText" fill="Black" layoutX="553.0" layoutY="26.0" text="Lives: 3" />
+
 
 </AnchorPane>

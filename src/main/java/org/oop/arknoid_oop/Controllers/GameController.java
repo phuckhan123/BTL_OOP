@@ -65,6 +65,8 @@ public class GameController {
     private boolean leftPressed = false;
     private boolean rightPressed = false;
     private int score = 0;
+    // biến đếm gạch có thể vỡ
+    private int breakableBrickCount = 0;
 
     private AnimationTimer gameTimer; // Đặt tên cho timer để có thể stop
 
@@ -120,6 +122,7 @@ public class GameController {
         // a. Xóa gạch cũ
         bricks.clear();
         brickContainer.getChildren().clear();
+        breakableBrickCount = 0;
 
         // b. Đặt lại bóng
         resetBallToPaddle();
@@ -216,6 +219,9 @@ public class GameController {
         }
 
         Brick brick = new Brick(brickView, score, health);
+        if(!brick.isUnbreakable()) {
+            breakableBrickCount++;
+        }
         bricks.add(brick);
         brickContainer.getChildren().add(brickView);
     }
@@ -360,6 +366,7 @@ public class GameController {
                 if (destroyed) {
                     // Nếu gạch bị phá hủy
                     toRemove.add(brick);
+                    breakableBrickCount--;
                     score += brick.getScoreValue();
                     scoreText.setText("Score: " + score);
                 }
@@ -374,7 +381,7 @@ public class GameController {
             bricks.remove(brick); // Xóa khỏi List logic
             brickContainer.getChildren().remove(brick.getView()); // Xóa khỏi Scene
         }
-        if (bricks.isEmpty()) {
+        if (breakableBrickCount <= 0) {
             // Hết gạch
             currentLevel++;
             if (currentLevel > maxLevel) {

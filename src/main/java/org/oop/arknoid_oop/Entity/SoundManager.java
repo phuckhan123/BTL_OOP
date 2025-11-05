@@ -6,11 +6,8 @@ import javafx.scene.media.MediaPlayer;
 import java.net.URL;
 import java.util.HashMap;
 public class SoundManager {
-    // 1. Singleton Instance
     private static final SoundManager instance = new SoundManager();
-    // 2. Bộ đệm cho Hiệu ứng (SFX)
     private HashMap<String, AudioClip> sfxCache;
-    // 3. Trình phát cho Nhạc nền (BGM)
     private MediaPlayer backgroundMusicPlayer;
     // 4. Cài đặt Âm lượng chung
     private double globalVolume = 0.3; // Mặc định là 80%
@@ -18,14 +15,10 @@ public class SoundManager {
     // 5. Hàm khởi tạo PRIVATE (để đảm bảo là Singleton)
     private SoundManager() {
         sfxCache = new HashMap<>();
-        // --- TẢI TẤT CẢ ÂM THANH NGAY KHI KHỞI TẠO ---
-        // Tự động tải tất cả các file âm thanh cần thiết
-        // Bằng cách này, chúng ta chỉ tải 1 lần duy nhất
         loadSound("bounce", "/sounds/bounce.mp3");
         loadSound("brickBreak", "/sounds/brickBreak.mp3");
         loadSound("brickUnbreakable", "/sounds/brickUnbreakable.mp3");
         loadSound("death", "/sounds/death.mp3");
-
         // Tải nhạc nền
         loadMusic("/sounds/background_music.mp3");
     }
