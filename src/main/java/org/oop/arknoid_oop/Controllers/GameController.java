@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 import org.oop.arknoid_oop.Entity.Ball;
 import org.oop.arknoid_oop.Entity.Brick;
 import org.oop.arknoid_oop.Entity.Paddle;
-
+import org.oop.arknoid_oop.Entity.PowerUp;
 import org.oop.arknoid_oop.Orserver.GameData;
 import org.oop.arknoid_oop.Orserver.GameDataObserver;
 
@@ -40,6 +40,9 @@ public class GameController {
     private Paddle paddle;
     private Ball ball;
     private List<Brick> bricks = new ArrayList<>();
+    private List<PowerUp> powerUps = new ArrayList<>();
+   
+
     private boolean ballLaunched = false;
     private boolean leftPressed = false;
     private boolean rightPressed = false;
@@ -53,7 +56,7 @@ public class GameController {
     private final double SCENE_WIDTH = 641;
     private final double SCENE_HEIGHT = 446;
     private int currentLevel = 1;
-    private int maxLevel = 2;
+    private int maxLevel = 5;
 
     private final double BRICK_WIDTH = 70;
     private final double BRICK_HEIGHT = 30;
@@ -69,7 +72,7 @@ public class GameController {
         ballImage.setCache(true);
         ballImage.toFront();
 
-        paddle = new Paddle(paddleView, 5.0);
+        paddle = new Paddle(paddleView, 7.0);
         ball = new Ball(ballImage);
 
         // 🟢 NEW: Khởi tạo GameData & Observer UI
@@ -136,16 +139,28 @@ public class GameController {
 
     private void createBrickAt(double x, double y, char type) {
         Rectangle brickView = new Rectangle(x, y, BRICK_WIDTH, BRICK_HEIGHT);
-        int health = 1;
-        int score = 10;
-        switch (type) {
-            case '1': health = 1; score = 10; break;
-            case '2': health = 2; score = 25; break;
-            case 'U': health = -1; score = 0; break;
-        }
+            brickView.setStroke(Color.BLACK);
+            brickView.setStrokeWidth(1);
+        
+            int health = 1;
+            int score = 10;
+            switch (type) {
+                case '1': health = 1; score = 10; break;
+                case '2': health = 2; score = 25; break;
+                case 'U': health = -1; score = 0; break;
+            }
 
-        Brick brick = new Brick(brickView, score, health);
-        if (!brick.isUnbreakable()) breakableBrickCount++;
+            // Set initial color before creating the brick
+            if (health == -1) {
+                brickView.setFill(Color.GRAY);
+            } else if (health == 2) {
+                brickView.setFill(Color.RED);
+            } else {
+                brickView.setFill(Color.ORANGE);
+            }
+
+            Brick brick = new Brick(brickView, score, health);
+            if (!brick.isUnbreakable()) breakableBrickCount++;
         bricks.add(brick);
         brickContainer.getChildren().add(brickView);
     }
@@ -164,7 +179,7 @@ public class GameController {
 
     private void launchBall() {
         ballLaunched = true;
-        ball.setVelocity(0, -6.0);
+        ball.setVelocity(0, -3.0);
     }
 
     private void resetBallToPaddle() {
@@ -202,6 +217,8 @@ public class GameController {
         if (ballLaunched) {
             handleBallMovement();
             checkCollisions();
+            updatePowerUps();
+            
         } else {
             updateStuckBallPosition();
         }
@@ -237,7 +254,7 @@ public class GameController {
         for (Brick brick : bricks) {
             if (ball.getBounds().intersects(brick.getBounds())) {
                 Bounds ballBounds = ball.getImageView().getBoundsInParent();
-                Bounds brickBounds = brick.getRectView().getBoundsInParent();
+                Bounds brickBounds = brick.getView().getBoundsInParent();
 
                 if (ballBounds.intersects(brickBounds)) {
                     double overlapWidth = Math.min(ballBounds.getMaxX(), brickBounds.getMaxX())
@@ -260,6 +277,21 @@ public class GameController {
                     breakableBrickCount--;
                     gameData.addScore(brick.getScoreValue()); // 🔵 CHANGE
                 }
+
+                // 🟢 NEW: Xác suất 25% rơi PowerUp khi gạch vỡ
+                if (destroyed && Math.random() < 0.55) {
+                    
+                    String[] types = {"ballFaster", "addLife", "paddleLonger"};
+                    String type = types[(int)(Math.random() * types.length)];
+                    PowerUp powerUp = new PowerUp(
+                        brick.getX() + brick.getWidth() / 2 - 15,
+                        brick.getY() + brick.getHeight(),
+                        type
+                    );
+                    powerUps.add(powerUp);
+                    brickContainer.getChildren().add(powerUp.getView());
+                }
+
                 break;
             }
         }
@@ -280,4 +312,28 @@ public class GameController {
             }
         }
     }
+    
+    private void updatePowerUps() {
+    List<PowerUp> toRemove = new ArrayList<>();
+    for (PowerUp p : powerUps) {
+        p.move();
+
+        if (p.getView().getBoundsInParent().intersects(paddle.getBounds())) {
+            p.applyEffect(paddle, gameData, ball, null, root);
+            toRemove.add(p);
+        } else if (p.isOutOfBottom(SCENE_HEIGHT)) {
+            toRemove.add(p);
+        }
+    }
+
+    for (PowerUp p : toRemove) {
+        brickContainer.getChildren().remove(p.getView());
+        powerUps.remove(p);
+    }
+    }
+
+
+
+
+
 }

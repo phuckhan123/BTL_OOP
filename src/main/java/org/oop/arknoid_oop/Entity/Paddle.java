@@ -21,16 +21,30 @@ public class Paddle extends GameObject {
 
     // Tự xử lý di chuyển và kiểm tra biên
     public void moveLeft(double leftBoundary) {
-        if (getX() > leftBoundary) {
+        
             view.setLayoutX(getX() - speed);
-        }
+        
     }
 
     public void moveRight(double rightBoundary) {
         double width = getRectView().getWidth();
         // rightBoundary chính là chiều rộng màn hình
-        if (getX() + width < rightBoundary) {
+        
             view.setLayoutX(getX() + speed);
-        }
+        
     }
+    
+    public void expand() {
+    Rectangle rect = getRectView();
+
+    // Lấy tâm hiện tại của paddle
+    double centerX = rect.getX() + rect.getWidth() / 2;
+
+    // Tăng 50% chiều rộng
+    rect.setWidth(rect.getWidth() * 1.5);
+
+    // Căn lại để paddle vẫn nằm giữa vị trí cũ
+    rect.setX(centerX - rect.getWidth() / 2);
+    }
+    
 }

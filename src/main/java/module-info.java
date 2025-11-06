@@ -1,9 +1,10 @@
 module org.oop.arknoid_oop {
-    requires transitive javafx.controls;
-    requires transitive javafx.fxml;
-    requires transitive javafx.graphics;
-    requires java.desktop;
+    requires javafx.base;
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires javafx.graphics;
     requires javafx.media;
+    requires java.desktop;
 
     opens org.oop.arknoid_oop to javafx.fxml;
     exports org.oop.arknoid_oop;

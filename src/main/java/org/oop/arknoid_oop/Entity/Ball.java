@@ -1,5 +1,8 @@
 package org.oop.arknoid_oop.Entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +18,13 @@ public class Ball extends GameObject {
     private ImageView imageView;
     private double dx = 0.0;
     private double dy = 0.0;
+    private double radius;
+    public Ball(ImageView view, double radius) {
+        super(view);
+        this.radius = radius;
+        this.dx = 3; // vận tốc mặc định, có thể thay
+        this.dy = -3;
+    }
 
     public Ball(ImageView imageView) {
         
@@ -135,4 +145,34 @@ System.out.println("Ball fitHeight=" + imageView.getFitHeight());
             this.dy = -this.dy; // vertical collision
         }
     }
+    
+    public void gotFaster(){
+        this.setVelocity(dx, dy+1.5);
+    }
+
+    // Ball.java
+    public double getDx() {
+        return dx;
+    }
+
+    public double getDy() {
+        return dy;
+    }
+
+    public Ball cloneBall() {
+        ImageView newView = new ImageView(this.getImageView().getImage());
+        newView.setFitWidth(getRadius() * 2);
+        newView.setFitHeight(getRadius() * 2);
+
+        Ball clone = new Ball(newView, this.getRadius());
+        clone.setVelocity(this.dx, this.dy);
+        clone.setPosition(this.getX(), this.getY());
+
+        return clone;
+    }
+
+
+
+
+
 }

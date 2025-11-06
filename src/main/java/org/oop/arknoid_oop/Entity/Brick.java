@@ -7,8 +7,9 @@ import javafx.scene.paint.Paint; // Dùng để lưu màu/ảnh cũ
 
 import javafx.util.Duration;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
-
+import javafx.scene.Node;
 
 
 public class Brick extends GameObject {
@@ -25,6 +26,37 @@ public class Brick extends GameObject {
         super(view);
         this.scoreValue = scoreValue;
     }
+
+    public Brick(Node view, int scoreValue, int health) {
+    super(view);
+    this.scoreValue = scoreValue;
+    this.health = health;
+
+    if (view instanceof Rectangle) {
+        updateAppearance(); // chỉ gọi khi là gạch vẽ bằng hình chữ nhật
+    }
+    }
+
+        public double getX() {
+        if (view instanceof ImageView img) {
+            return img.getX();
+        } else if (view instanceof Rectangle rect) {
+            return rect.getX();
+        } else {
+            return view.getLayoutX();
+        }
+    }
+
+    public double getY() {
+        if (view instanceof ImageView img) {
+            return img.getY();
+        } else if (view instanceof Rectangle rect) {
+            return rect.getY();
+        } else {
+            return view.getLayoutY();
+        }
+    }
+
     public void playHitEffect() {
         // Chỉ chạy hiệu ứng nếu là gạch bất tử
         if (!isUnbreakable()) {

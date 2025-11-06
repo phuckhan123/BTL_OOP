@@ -50,6 +50,12 @@ public class GameData {
         notifyObservers();
     }
 
+    public void addLife(){
+        
+        lives++;
+        System.out.println(lives);
+    }
+
     public void loseLife() {
         lives--;
         lifeJustLost = true;
