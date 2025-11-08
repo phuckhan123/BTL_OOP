@@ -5,7 +5,7 @@
 
 <AnchorPane fx:id="welcomeRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.oop.arknoid_oop.Controllers.WelcomeController">
    <children>
-      <Button fx:id="startButton" layoutX="252.0" layoutY="164.0" mnemonicParsing="false" onAction="#onStart" prefHeight="29.0" prefWidth="96.0" styleClass="menu-button" text="Start Game" />
+      <Button fx:id="startButton" layoutX="252.0" layoutY="157.0" mnemonicParsing="false" onAction="#onStart" prefHeight="29.0" prefWidth="96.0" styleClass="menu-button" text="Start Game" />
       <Button layoutX="252.0" layoutY="214.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="96.0" styleClass="menu-button" text="Settings" />
 
    </children>

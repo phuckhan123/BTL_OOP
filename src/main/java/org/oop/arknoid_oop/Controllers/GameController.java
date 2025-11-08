@@ -2,7 +2,10 @@ package org.oop.arknoid_oop.Controllers;
 
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -12,10 +15,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import org.oop.arknoid_oop.Entity.Ball;
-import org.oop.arknoid_oop.Entity.Brick;
-import org.oop.arknoid_oop.Entity.Paddle;
-import org.oop.arknoid_oop.Entity.PowerUp;
+import javafx.stage.Stage;
+import org.oop.arknoid_oop.ArknoidApplication;
+import org.oop.arknoid_oop.Entity.*;
 import org.oop.arknoid_oop.Orserver.GameData;
 import org.oop.arknoid_oop.Orserver.GameDataObserver;
 
@@ -61,11 +63,11 @@ public class GameController {
     private final double BRICK_WIDTH = 70;
     private final double BRICK_HEIGHT = 30;
     private final double BRICK_GAP = 5;
+    private Node pauseMenuNode;
 
     @FXML
     public void initialize() {
-        
-
+        SoundManager.getInstance().playMusic();
         ballImage.setVisible(true);
         ballImage.setOpacity(1.0);
         ballImage.setSmooth(true);
@@ -84,6 +86,67 @@ public class GameController {
         loadLevel(currentLevel);
         resetBallToPaddle();
         startGameLoop();
+    }
+    private void pauseGame() {
+        gameTimer.stop(); // Dừng vòng lặp game
+
+        // ** THAY VÌ: pauseOverlay.setVisible(true); **
+        // Chúng ta sẽ load FXML:
+        try {
+
+            FXMLLoader loader = new FXMLLoader(ArknoidApplication.class.getResource("pause-menu.fxml"));
+            pauseMenuNode = loader.load(); // Tải FXML và lưu Node gốc
+            // Lấy controller của menu pause
+            PauseMenuController pauseController = loader.getController();
+            // "Bơm" tham chiếu của GameController (this) vào PauseController
+            pauseController.setGameController(this);
+            // Thêm menu pause vào màn hình game (chồng lên trên)
+            root.getChildren().add(pauseMenuNode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void resumeGame() {
+        // ** THAY VÌ: pauseOverlay.setVisible(false); **
+        // Chúng ta gỡ bỏ Node khỏi màn hình
+        if (pauseMenuNode != null) {
+            root.getChildren().remove(pauseMenuNode);
+            pauseMenuNode = null; // Reset
+        }
+
+        gameTimer.start(); // Tiếp tục vòng lặp game
+    }
+    public void quitToMenu() {
+        try {
+            // Dừng nhạc
+            SoundManager.getInstance().stopAll();
+
+            // 1. Tải lại FXML của Welcome
+            FXMLLoader loader = new FXMLLoader(ArknoidApplication.class.getResource("welcome-view.fxml"));
+
+            // 2. Load FXML thành một đối tượng Parent
+            Parent welcomeRoot = loader.load();
+
+            // 3. Tạo một Scene mới từ FXML vừa load
+            Scene welcomeScene = new Scene(welcomeRoot);
+            URL cssURL = ArknoidApplication.class.getResource("/css/mainStyle.css");
+            if (cssURL != null) {
+                welcomeScene.getStylesheets().add(cssURL.toExternalForm());
+            } else {
+                System.err.println("Không tìm thấy file mainStyle.css!");
+            }
+
+            // 4. Lấy Stage (cửa sổ) hiện tại.
+            //    (Chúng ta dùng 'root' - AnchorPane chính của GameController để lấy)
+            Stage currentStage = (Stage) root.getScene().getWindow();
+
+            // 5. Đặt Scene của màn hình Welcome vào Stage
+            currentStage.setScene(welcomeScene);
+            currentStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadLevel(int levelNumber) {
@@ -170,11 +233,15 @@ public class GameController {
             if (e.getCode() == KeyCode.LEFT) leftPressed = true;
             if (e.getCode() == KeyCode.RIGHT) rightPressed = true;
             if (e.getCode() == KeyCode.SPACE && !ballLaunched) launchBall();
+            if (e.getCode() == KeyCode.ESCAPE) {
+                pauseGame();
+            }
         });
         scene.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.LEFT) leftPressed = false;
             if (e.getCode() == KeyCode.RIGHT) rightPressed = false;
         });
+
     }
 
     private void launchBall() {

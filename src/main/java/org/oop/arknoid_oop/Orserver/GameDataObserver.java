@@ -10,7 +10,6 @@ import org.oop.arknoid_oop.Entity.SoundManager;
 public class GameDataObserver implements Observer {
     private final Text scoreText;
     private final Text livesText;
-    private  boolean backgroundMusicStarted = false;
     public GameDataObserver(Text scoreText, Text livesText) {
         this.scoreText = scoreText;
         this.livesText = livesText;
@@ -20,15 +19,10 @@ public class GameDataObserver implements Observer {
 
         livesText.setFill(Color.WHITE);
         livesText.setFont(Font.font("Arial", 23));
-        if (!backgroundMusicStarted) {
-            SoundManager.getInstance().playMusic();
-            backgroundMusicStarted = true;
-        }
     }
 
     @Override
     public void update(GameData gameData) {
-        SoundManager.getInstance().playSound("background_music");
         // Cập nhật UI
         scoreText.setText("⭐ " + gameData.getScore());
 
