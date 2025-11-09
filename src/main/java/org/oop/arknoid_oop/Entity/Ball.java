@@ -1,11 +1,12 @@
 package org.oop.arknoid_oop.Entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
+
+import javafx.animation.PauseTransition;
 import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 /**
  * Ball backed by an ImageView (loads /images/ball.jpg by default).
@@ -46,9 +47,6 @@ public class Ball extends GameObject {
         if (this.imageView.getFitHeight() == 0) this.imageView.setFitHeight(16);
         this.imageView.setPreserveRatio(true);
         this.imageView.setVisible(true);
-        System.out.println("Ball fitWidth=" + imageView.getFitWidth());
-System.out.println("Ball fitHeight=" + imageView.getFitHeight());
-
     }
 
     public ImageView getImageView() {
@@ -148,6 +146,14 @@ System.out.println("Ball fitHeight=" + imageView.getFitHeight());
     
     public void gotFaster(){
         this.setVelocity(dx, dy+1.5);
+        PauseTransition timer = new PauseTransition(Duration.millis(5000));
+            
+            timer.setOnFinished(event -> {
+            this.setVelocity(dx, dy-1.5);
+            });
+            // e. Bắt đầu đếm
+        timer.play();
+        
     }
 
     // Ball.java

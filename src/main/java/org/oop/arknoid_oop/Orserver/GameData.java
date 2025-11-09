@@ -51,9 +51,15 @@ public class GameData {
     }
 
     public void addLife(){
-        
+        if(lives<3)
         lives++;
-        System.out.println(lives);
+        notifyObservers();
+    }
+
+    public void resetLife(){
+        
+        lives = 3;
+        notifyObservers();
     }
 
     public void loseLife() {

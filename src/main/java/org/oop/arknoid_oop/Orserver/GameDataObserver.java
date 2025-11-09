@@ -37,7 +37,7 @@ public class GameDataObserver implements Observer {
             bounce(scoreText);
         }
         if (gameData.isLifeJustLost()) {
-            SoundManager.getInstance().playSound("deaths");
+            SoundManager.getInstance().playSound("death");
         }
         if (gameData.isHitUnbreakable()) {
             SoundManager.getInstance().playSound("brickUnbreakable");

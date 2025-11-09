@@ -74,7 +74,7 @@ public class GameController {
         ballImage.setCache(true);
         ballImage.toFront();
 
-        paddle = new Paddle(paddleView, 7.0);
+        paddle = new Paddle(paddleView, 6.0);
         ball = new Ball(ballImage);
 
         // 🟢 NEW: Khởi tạo GameData & Observer UI
@@ -153,8 +153,11 @@ public class GameController {
         bricks.clear();
         brickContainer.getChildren().clear();
         breakableBrickCount = 0;
+        ball.setVelocity(3, -3);
+        gameData.resetLife();
         resetBallToPaddle();
-
+        if(levelNumber>0)
+        paddle.reset();
         try {
             String bgPath = "/images/gameviewlevel" + levelNumber + ".jpg";
             URL bgUrl = getClass().getResource(bgPath);
@@ -268,7 +271,7 @@ public class GameController {
         scoreText.setFill(Color.RED);
         gameTimer.stop();
     }
-
+    //vong lap chinh
     private void startGameLoop() {
         gameTimer = new AnimationTimer() {
             @Override
@@ -345,8 +348,8 @@ public class GameController {
                     gameData.addScore(brick.getScoreValue()); // 🔵 CHANGE
                 }
 
-                // 🟢 NEW: Xác suất 25% rơi PowerUp khi gạch vỡ
-                if (destroyed && Math.random() < 0.55) {
+                // 🟢 NEW: Xác suất 5% rơi PowerUp khi gạch vỡ
+                if (destroyed && Math.random() < 0.25) {
                     
                     String[] types = {"ballFaster", "addLife", "paddleLonger"};
                     String type = types[(int)(Math.random() * types.length)];
