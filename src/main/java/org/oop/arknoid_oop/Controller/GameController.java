@@ -1,4 +1,4 @@
-package org.oop.arknoid_oop.Controllers;
+package org.oop.arknoid_oop.Controller;
 
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 
 import javafx.stage.Stage;
 import org.oop.arknoid_oop.ArknoidApplication;
+import org.oop.arknoid_oop.Database.Database;
 import org.oop.arknoid_oop.Entity.*;
 import org.oop.arknoid_oop.Orserver.GameData;
 import org.oop.arknoid_oop.Orserver.GameDataObserver;
@@ -25,6 +26,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,8 +67,16 @@ public class GameController {
     private final double BRICK_GAP = 5;
     private Node pauseMenuNode;
 
+    private Connection connect = null;
+
     @FXML
     public void initialize() {
+        try  {
+            connect = Database.connect();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         SoundManager.getInstance().playMusic();
         ballImage.setVisible(true);
         ballImage.setOpacity(1.0);
@@ -317,6 +327,7 @@ public class GameController {
     private void checkCollisions() {
         if (ball.getBounds().intersects(paddle.getBounds())) {
             ball.setPosition(ball.getX(), paddle.getY() - ball.getRadius());
+            SoundManager.getInstance().playSound("bounce");
             ball.calculatePaddleBounce(paddle);
         }
 

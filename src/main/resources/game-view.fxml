@@ -11,7 +11,7 @@
             prefHeight="446.0" prefWidth="641.0" 
             xmlns="http://javafx.com/javafx/25" 
             xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="org.oop.arknoid_oop.Controllers.GameController">
+            fx:controller="org.oop.arknoid_oop.Controller.GameController">
 
     <!-- Thanh paddle -->
     <Rectangle fx:id="paddleView" fill="lightblue" height="15" 

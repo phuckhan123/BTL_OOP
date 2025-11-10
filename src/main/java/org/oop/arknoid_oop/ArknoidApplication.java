@@ -11,8 +11,9 @@ import java.net.URL;
 public class ArknoidApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+
         FXMLLoader loader =
-                new FXMLLoader(ArknoidApplication.class.getResource("welcome-view.fxml"));
+                new FXMLLoader(ArknoidApplication.class.getResource("login-view.fxml"));
         Scene welcomeScene = new Scene(loader.load());
         URL cssUrl = ArknoidApplication.class.getResource("/css/mainStyle.css");
         if (cssUrl != null) {
@@ -25,6 +26,6 @@ public class ArknoidApplication extends Application {
         stage.show();
     }
     public static void main(String[] args) {
-        launch(); // 🔹 Đây là nơi chương trình thật sự bắt đầu
+        launch();
     }
 }

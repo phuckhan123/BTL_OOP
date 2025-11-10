@@ -1,4 +1,4 @@
-package org.oop.arknoid_oop.Controllers;
+package org.oop.arknoid_oop.Controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -37,7 +37,7 @@ public class WelcomeController {
             stage.setTitle("Arknoid Game");
 
             // ✨ SỬA LỖI COMMENT: Cách tải Image đúng
-            URL iconUrl = ArknoidApplication.class.getResource("/icons/book_icon.png");
+            URL iconUrl = ArknoidApplication.class.getResource("/org/oop/arknoid_oop/icons/book_icon.png");
             if (iconUrl != null) {
                 Image image = new Image(iconUrl.toExternalForm());
                 stage.getIcons().add(image);

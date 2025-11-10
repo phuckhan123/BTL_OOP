@@ -1,4 +1,4 @@
-package org.oop.arknoid_oop.Controllers;
+package org.oop.arknoid_oop.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
