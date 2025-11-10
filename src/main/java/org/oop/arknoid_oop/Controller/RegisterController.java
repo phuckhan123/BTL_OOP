@@ -89,14 +89,9 @@ public class RegisterController implements Initializable {
                 try {
                     FXMLLoader loader = new FXMLLoader(ArknoidApplication.class.getResource("login-view.fxml"));
                     Scene mainScene = new Scene(loader.load());
-//                    mainScene.getStylesheets().add(ArknoidApplication.class.getResource("css/mainStyle.css").toExternalForm());
                     Stage stage = new Stage();
                     stage.setScene(mainScene);
-//                    stage.setTitle("Library Management");
-//                    Image image = new Image(String.valueOf(ArknoidApplication.class.getResource("icons/book_icon.png")));
-//                    stage.getIcons().add(image);
                     stage.show();
-
                     Stage currentStage = (Stage) regiterButton.getScene().getWindow();
                     currentStage.setOnCloseRequest(event2 -> {
                         Platform.exit();

@@ -3,6 +3,12 @@
     -fx-background-image: url("../images/welcomeviewbackground.jpg");
     -fx-background-size: cover;
 }
+#loginRoot {
+    /* Sửa thành ../images/ */
+    -fx-background-image: url("../images/login.jpg");
+    -fx-background-size: cover;
+}
+
 /*
   Style cho các nút menu (Vô hình khi bình thường)
   Bạn sẽ gán class="menu-button" cho các nút của mình

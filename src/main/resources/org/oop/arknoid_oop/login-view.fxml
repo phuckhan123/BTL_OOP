@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" styleClass="bgr" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.oop.arknoid_oop.Controller.LoginController">
+<AnchorPane fx:id="loginRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="974.0" styleClass="bgr" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.oop.arknoid_oop.Controller.LoginController">
     <children>
         <TextField fx:id="usernameInput" layoutX="673.0" layoutY="240.0" onKeyPressed="#enterkey" prefHeight="25.0" prefWidth="279.0" promptText="User name" AnchorPane.rightAnchor="42.0">
             <styleClass>

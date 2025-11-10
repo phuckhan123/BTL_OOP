@@ -256,7 +256,7 @@ public class GameController {
 
     private void launchBall() {
         ballLaunched = true;
-        ball.setVelocity(0, -3.0);
+        ball.setVelocity(0, -5.0);
     }
 
     private void resetBallToPaddle() {
@@ -274,10 +274,19 @@ public class GameController {
     private void gameOver() {
         ballLaunched = false;
         ball.stop();
-        scoreText.setText("Game Over! Final Score: " + gameData.getScore()); // 🔵 CHANGE
+        scoreText.setText("Game Over! Final Score: " + gameData.getScore());
         scoreText.setFill(Color.RED);
         gameTimer.stop();
+
+        try {
+            Thread.sleep(1000); // dừng 1 giây để hiển thị thông báo
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        quitToMenu();
     }
+
     //vong lap chinh
     private void startGameLoop() {
         gameTimer = new AnimationTimer() {
