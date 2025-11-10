@@ -17,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.oop.arknoid_oop.ArknoidApplication;
+import org.oop.arknoid_oop.Entity.SoundManager;
 import org.oop.arknoid_oop.Service.UserService;
 
 import java.io.File;
@@ -50,6 +51,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        SoundManager.getInstance().playMusic();
         progressIndicator.setVisible(false);
         String imagePath = "resources/images/login.png";
         Image image = new Image(new File(imagePath).toURI().toString());
@@ -59,14 +61,10 @@ public class LoginController implements Initializable {
     public void registerAction() throws IOException {
         FXMLLoader loader = new FXMLLoader(ArknoidApplication.class.getResource("register-view.fxml"));
         Scene mainScene = new Scene(loader.load());
-//                    mainScene.getStylesheets().add(ArknoidApplication.class.getResource("css/mainStyle.css").toExternalForm());
         Stage stage = new Stage();
         stage.setScene(mainScene);
-//                    stage.setTitle("Library Management");
-//                    Image image = new Image(String.valueOf(ArknoidApplication.class.getResource("icons/book_icon.png")));
-//                    stage.getIcons().add(image);
+//
         stage.show();
-
         Stage currentStage = (Stage) registerButton.getScene().getWindow();
         currentStage.setOnCloseRequest(event2 -> {
             Platform.exit();
@@ -109,12 +107,14 @@ public class LoginController implements Initializable {
                 try {
                     FXMLLoader loader = new FXMLLoader(ArknoidApplication.class.getResource("welcome-view.fxml"));
                     Scene mainScene = new Scene(loader.load());
-//                    mainScene.getStylesheets().add(ArknoidApplication.class.getResource("css/mainStyle.css").toExternalForm());
+                    URL cssURL = ArknoidApplication.class.getResource("/css/mainStyle.css");
+                    if (cssURL != null) {
+                        mainScene.getStylesheets().add(cssURL.toExternalForm());
+                    } else {
+                        System.err.println("Không tìm thấy file mainStyle.css!");
+                    }
                     Stage stage = new Stage();
                     stage.setScene(mainScene);
-//                    stage.setTitle("Library Management");
-//                    Image image = new Image(String.valueOf(ArknoidApplication.class.getResource("icons/book_icon.png")));
-//                    stage.getIcons().add(image);
                     stage.show();
 
                     Stage currentStage = (Stage) loginButton.getScene().getWindow();

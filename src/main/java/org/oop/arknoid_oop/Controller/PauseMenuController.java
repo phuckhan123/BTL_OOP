@@ -37,7 +37,6 @@ public class PauseMenuController {
     @FXML
     public void initialize() {
         // Cài đặt hành động cho các nút
-
         resumeButton.setOnAction(event -> {
             if (gameController != null) {
                 // Ra lệnh cho GameController tiếp tục

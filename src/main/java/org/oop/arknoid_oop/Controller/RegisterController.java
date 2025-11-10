@@ -1,5 +1,4 @@
 package org.oop.arknoid_oop.Controller;
-
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -17,7 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.oop.arknoid_oop.ArknoidApplication;
-import org.oop.arknoid_oop.Database.Database;
+
 import org.oop.arknoid_oop.Service.UserService;
 
 import java.io.File;

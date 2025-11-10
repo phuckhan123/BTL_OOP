@@ -77,7 +77,6 @@ public class GameController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        SoundManager.getInstance().playMusic();
         ballImage.setVisible(true);
         ballImage.setOpacity(1.0);
         ballImage.setSmooth(true);
@@ -128,8 +127,6 @@ public class GameController {
     }
     public void quitToMenu() {
         try {
-            // Dừng nhạc
-            SoundManager.getInstance().stopAll();
 
             // 1. Tải lại FXML của Welcome
             FXMLLoader loader = new FXMLLoader(ArknoidApplication.class.getResource("welcome-view.fxml"));
