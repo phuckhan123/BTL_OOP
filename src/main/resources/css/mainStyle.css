@@ -1,10 +1,10 @@
 #welcomeRoot {
-    /* Sửa thành ../images/ */
+
     -fx-background-image: url("../images/welcomeviewbackground.jpg");
     -fx-background-size: cover;
 }
 #loginRoot {
-    /* Sửa thành ../images/ */
+
     -fx-background-image: url("../images/login.jpg");
     -fx-background-size: cover;
 }
@@ -76,32 +76,3 @@
 }
 
 
-/** 3. Gạch (Bricks) **/
-
-/* Đây là style CƠ BẢN cho TẤT CẢ các viên gạch */
-.brick {
-    -fx-stroke: black; /* Viền đen */
-    -fx-stroke-width: 1.5;
-    -fx-arc-width: 8;  /* Bo góc */
-    -fx-arc-height: 8;
-
-    /* ĐÃ TẮT HIỆU ỨNG NÀY ĐI VÌ NÓ GÂY LAG VÀ LỖI VẬT LÝ
-      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 2, 2);
-    */
-}
-
-/* Gạch 1 máu (ví dụ: màu Xanh dương) */
-.brick-health1 {
-    -fx-fill: linear-gradient(from 0% 0% to 0% 100%, #4da6ff, #005cb3);
-}
-
-/* Gạch 2 máu (ví dụ: màu Xanh lá) */
-.brick-health2 {
-    -fx-fill: linear-gradient(from 0% 0% to 0% 100%, #80ff80, #00b300);
-}
-
-/* Gạch không thể phá (ví dụ: màu Xám kim loại) */
-.brick-unbreakable {
-    -fx-fill: linear-gradient(from 0% 0% to 0% 100%, #c0c0c0, #505050);
-    -fx-stroke: #202020;
-}

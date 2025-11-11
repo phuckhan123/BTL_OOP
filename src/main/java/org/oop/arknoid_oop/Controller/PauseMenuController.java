@@ -20,16 +20,11 @@ public class PauseMenuController {
     // Biến để lưu tham chiếu đến GameController
     private GameController gameController;
 
-    /**
-     * Hàm này được gọi bởi GameController để "kết nối" 2 controller
-     */
     public void setGameController(GameController gameController) {
         this.gameController = gameController;
     }
 
-    /**
-     * Hàm này trả về Node gốc để GameController có thể thêm/xóa nó
-     */
+
     public Node getRoot() {
         return pauseRoot;
     }

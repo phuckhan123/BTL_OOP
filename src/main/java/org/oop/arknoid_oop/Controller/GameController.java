@@ -1,6 +1,7 @@
 package org.oop.arknoid_oop.Controller;
 
 import javafx.animation.AnimationTimer;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
@@ -21,6 +22,8 @@ import org.oop.arknoid_oop.Database.Database;
 import org.oop.arknoid_oop.Entity.*;
 import org.oop.arknoid_oop.Orserver.GameData;
 import org.oop.arknoid_oop.Orserver.GameDataObserver;
+import org.oop.arknoid_oop.Service.DataService;
+import org.oop.arknoid_oop.Service.UserService;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -71,6 +74,7 @@ public class GameController {
 
     @FXML
     public void initialize() {
+
         try  {
             connect = Database.connect();
 
@@ -277,7 +281,7 @@ public class GameController {
         scoreText.setText("Game Over! Final Score: " + gameData.getScore());
         scoreText.setFill(Color.RED);
         gameTimer.stop();
-
+        updateFinalScore();
         try {
             Thread.sleep(1000); // dừng 1 giây để hiển thị thông báo
         } catch (InterruptedException e) {
@@ -392,8 +396,9 @@ public class GameController {
             currentLevel++;
             if (currentLevel > maxLevel) {
                 ball.stop();
-                scoreText.setText("YOU WIN! Score: " + gameData.getScore()); // 🔵 CHANGE
+                scoreText.setText("YOU WIN! Score: " + gameData.getScore());
                 gameTimer.stop();
+                updateFinalScore();
             } else {
                 loadLevel(currentLevel);
             }
@@ -417,6 +422,21 @@ public class GameController {
         brickContainer.getChildren().remove(p.getView());
         powerUps.remove(p);
     }
+    }
+    private void updateFinalScore() {
+        String username = DataService.username;
+        int finalScore = gameData.getScore();
+        if (username != null) {
+            // Chạy DB call trên luồng mới để không làm đơ game
+            Task<Void> task = new Task<>() {
+                @Override
+                protected Void call() throws Exception {
+                    UserService.updateHighScore(username, finalScore);
+                    return null;
+                }
+            };
+            new Thread(task).start();
+        }
     }
 
 

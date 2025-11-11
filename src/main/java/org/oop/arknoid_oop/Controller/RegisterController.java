@@ -91,6 +91,12 @@ public class RegisterController implements Initializable {
                     Scene mainScene = new Scene(loader.load());
                     Stage stage = new Stage();
                     stage.setScene(mainScene);
+                    URL cssUrl = ArknoidApplication.class.getResource("/css/mainStyle.css");
+                    if (cssUrl != null) {
+                        mainScene.getStylesheets().add(cssUrl.toExternalForm());
+                    } else {
+                        System.err.println("Không tìm thấy tệp CSS: css/mainStyle.css");
+                    }
                     stage.show();
                     Stage currentStage = (Stage) regiterButton.getScene().getWindow();
                     currentStage.setOnCloseRequest(event2 -> {

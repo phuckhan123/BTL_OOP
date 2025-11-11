@@ -18,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.oop.arknoid_oop.ArknoidApplication;
 import org.oop.arknoid_oop.Entity.SoundManager;
+import org.oop.arknoid_oop.Service.DataService;
 import org.oop.arknoid_oop.Service.UserService;
 
 import java.io.File;
@@ -89,7 +90,6 @@ public class LoginController implements Initializable {
         progressIndicator.setVisible(true);
         String username = usernameInput.getText();
         String password = passwordInput.getText();
-
         Task<Boolean> task = new Task<>() {
             @Override
             protected Boolean call() {
@@ -107,6 +107,7 @@ public class LoginController implements Initializable {
             boolean loginSuccessful = task.getValue();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             if (loginSuccessful) {
+                DataService.username = usernameInput.getText();
                 alert.setTitle("Welcome");
                 alert.setHeaderText("Welcome " + username);
                 alert.showAndWait();
