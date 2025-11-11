@@ -48,7 +48,7 @@ This is a classic Arkanoid game developed in Java as a final project for Object-
 **Used in:** `LevelFactory.java`
 
 
-**Purpose**:The Factory Pattern helps create objects without exposing the creation logic to the client. It lets you produce different types of objects using a common interface, making the code easier to maintain, extend, and modify.
+**Purpose:**:The Factory Pattern helps create objects without exposing the creation logic to the client. It lets you produce different types of objects using a common interface, making the code easier to maintain, extend, and modify.
 
 
 ---
