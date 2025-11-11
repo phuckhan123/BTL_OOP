@@ -31,7 +31,7 @@ This is a classic Arkanoid game developed in Java as a final project for Object-
 ## UML Diagram
 
 ### Class Diagram
-![Class Diagram](src/main/resources/images/game_preview.png)
+![Class Diagram](src/main/resources/images/class_diagram.png)
 
 ## Design Patterns Implementation
 
@@ -46,7 +46,11 @@ This is a classic Arkanoid game developed in Java as a final project for Object-
 **Purpose:**: The Observer Pattern is used to notify game components automatically when certain events occur (e.g., score updates, player health changes, or game state transitions) — helping keep the code modular, flexible, and decoupled.
 ### 3. Factory Pattern
 **Used in:** `LevelFactory.java`
+
+
 **Purpose**:The Factory Pattern helps create objects without exposing the creation logic to the client. It lets you produce different types of objects using a common interface, making the code easier to maintain, extend, and modify.
+
+
 ---
 
 ## Multithreading Implementation
