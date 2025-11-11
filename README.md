@@ -31,7 +31,7 @@ This is a classic Arkanoid game developed in Java as a final project for Object-
 ## UML Diagram
 
 ### Class Diagram
-![Class Diagram](./images/class_diagram.png)
+![Class Diagram](src/main/resources/images/game_preview.png)
 
 ## Design Patterns Implementation
 
