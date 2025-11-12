@@ -158,6 +158,9 @@ The game uses multiple threads to ensure smooth performance:
 
 ---
 
+## Video Demo
+![Leaderboard](docs/screenshots/leaderboard.png)
+
 ## License
 
 This project is developed for educational purposes only.
