@@ -123,6 +123,8 @@ The game uses multiple threads to ensure smooth performance:
 **Leaderboard**  
 ![Leaderboard](docs/screenshots/leaderboard.png)
 
+**Video Demo**
+![Leaderboard](https://www.youtube.com/watch?v=jOCU-lsMj-I)
 
 ---
 
@@ -157,9 +159,6 @@ The game uses multiple threads to ensure smooth performance:
 | Jackson | 2.15.0 | JSON processing |
 
 ---
-
-## Video Demo
-![Leaderboard](docs/screenshots/leaderboard.png)
 
 ## License
 
