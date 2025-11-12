@@ -120,8 +120,7 @@ public class GameController {
         }
     }
     public void resumeGame() {
-        // ** THAY VÌ: pauseOverlay.setVisible(false); **
-        // Chúng ta gỡ bỏ Node khỏi màn hình
+
         if (pauseMenuNode != null) {
             root.getChildren().remove(pauseMenuNode);
             pauseMenuNode = null; // Reset
@@ -324,7 +323,7 @@ public class GameController {
         ball.checkWallCollision(SCENE_WIDTH, SCENE_HEIGHT);
         if (ball.isOutOfBottom(SCENE_HEIGHT)) {
             
-            gameData.loseLife(); // 🔵 CHANGE
+            gameData.loseLife();
 
             if (gameData.getLives() <= 0) {
                 gameOver();
@@ -366,10 +365,9 @@ public class GameController {
                 if (destroyed) {
                     toRemove.add(brick);
                     breakableBrickCount--;
-                    gameData.addScore(brick.getScoreValue()); // 🔵 CHANGE
+                    gameData.addScore(brick.getScoreValue());
                 }
 
-                // 🟢 NEW: Xác suất 5% rơi PowerUp khi gạch vỡ
                 if (destroyed && Math.random() < 0.25) {
                     
                     String[] types = {"ballFaster", "addLife", "paddleLonger"};

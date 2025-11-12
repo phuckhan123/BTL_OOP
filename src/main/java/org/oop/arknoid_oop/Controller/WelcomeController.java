@@ -68,18 +68,19 @@ public class WelcomeController {
         try {
             FXMLLoader loader = new FXMLLoader(ArknoidApplication.class.getResource("leaderboard-view.fxml"));
             Scene scene = new Scene(loader.load());
-
-            URL cssUrl = ArknoidApplication.class.getResource("/css/mainStyle.css");
-            if (cssUrl != null) {
-                scene.getStylesheets().add(cssUrl.toExternalForm());
-            }
-
             Stage stage = new Stage();
             stage.setTitle("Bảng Xếp Hạng");
             stage.setScene(scene);
-            stage.setResizable(false); // Bạn nên tắt co giãn cho cửa sổ pop-up
+            URL cssUrl = ArknoidApplication.class.getResource("/css/mainStyle.css");
+            if (cssUrl != null) {
+                scene.getStylesheets().add(cssUrl.toExternalForm());
+                System.out.println("css sucess");
+            } else {
+                System.err.println("Không tìm thấy tệp CSS: css/mainStyle.css");
+            }
+            stage.setResizable(false);
 
-            stage.show(); // Hiển thị cửa sổ Bảng xếp hạng
+            stage.show();
 
         } catch (IOException e) {
             System.err.println("Không thể tải leaderboard-view.fxml");

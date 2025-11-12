@@ -4,29 +4,71 @@
     -fx-background-size: cover;
 }
 #loginRoot {
-
     -fx-background-image: url("../images/login.jpg");
     -fx-background-size: cover;
 }
 
-/*
-  Style cho các nút menu (Vô hình khi bình thường)
-  Bạn sẽ gán class="menu-button" cho các nút của mình
-*/
-.menu-button {
-    /* --- 1. TRẠNG THÁI MẶC ĐỊNH (VÔ HÌNH) --- */
-    -fx-background-color: transparent; /* Nền trong suốt */
-    -fx-border-color: rgba(255, 255, 255, 0.3); /* Viền trắng mờ (để người chơi lờ mờ thấy) */
-    -fx-border-width: 1px;
-    -fx-text-fill: rgba(255, 255, 255, 0.5); /* Chữ trắng mờ */
+#leaderboardRoot {
+   -fx-background-image: url("../images/leaderboardBackground.jpg");
+   -fx-background-size: cover;
 
-    /* Hiệu ứng chuyển động mượt */
+}
+.table-view {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-view .viewport {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background,
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.table-row-cell {
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:odd,
+.table-row-cell:even {
+    -fx-background-color: transparent;
+}
+
+.table-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgba(255, 204, 0, 0.25);
+    -fx-text-fill: black;
+}
+
+.menu-button {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 1px;
+    -fx-text-fill: rgba(255, 255, 255, 0.5);
+
     -fx-transition: all 0.2s ease-in-out;
 }
 
 .menu-button:hover {
-    /* --- 2. KHI DI CHUỘT VÀO (SÁNG LÊN) --- */
-    -fx-border-color: white; /* Viền trắng rõ */
+    -fx-border-color: white;
     -fx-text-fill: white; /* Chữ trắng rõ */
 
     /* Thêm hiệu ứng hào quang nhẹ */

@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import org.oop.arknoid_oop.Entity.UserScore;
 import org.oop.arknoid_oop.Service.UserService;
 
@@ -18,11 +19,13 @@ import java.util.ResourceBundle;
 
 public class LeaderboardController implements Initializable {
     @FXML
-    private TableView<UserScore> leaderboardTable;
+    private TableView<UserScore> leaderboardTableRoot;
     @FXML
     private TableColumn<UserScore, String> usernameColumn;
     @FXML
     private TableColumn<UserScore, Integer> scoreColumn;
+    @FXML
+    private AnchorPane leaderboardRoot;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -37,7 +40,6 @@ public class LeaderboardController implements Initializable {
             throw new RuntimeException(e);
         }
         ObservableList<UserScore> data = FXCollections.observableArrayList(topScores);
-        System.out.println(data.stream().count());
-        leaderboardTable.setItems(data);
+        leaderboardTableRoot.setItems(data);
     }
 }
