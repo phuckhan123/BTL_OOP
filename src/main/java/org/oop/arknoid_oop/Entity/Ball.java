@@ -116,7 +116,7 @@ public class Ball extends GameObject {
         // Consider the ball out when its top is beyond the scene height
         return imageView.getLayoutY() > sceneHeight;
     }
-
+    //tính góc lệch khi bóng chạm vào paddle
     public void calculatePaddleBounce(Paddle paddle) {
 
         double currentSpeed = Math.sqrt(dx * dx + dy * dy);

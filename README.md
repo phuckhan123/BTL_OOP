@@ -85,8 +85,6 @@ The game uses multiple threads to ensure smooth performance:
 | `→`  | Move paddle right |
 | `SPACE`| Launch ball |
 | `ESC` | Pause game |
-| `R` | Restart game |
-| `Q` | Quit to menu |
 
 ### How to Play
 1. **Start the game**: Click "Start Game" from the main menu.
