@@ -76,7 +76,7 @@ The game uses multiple threads to ensure smooth performance:
 | `←`  | Move paddle left |
 | `→`  | Move paddle right |
 | `SPACE`| Launch ball |
-| `P` or `ESC` | Pause game |
+| `ESC` | Pause game |
 | `R` | Restart game |
 | `Q` | Quit to menu |
 
@@ -92,9 +92,9 @@ The game uses multiple threads to ensure smooth performance:
 ### Power-ups
 | Icon | Name | Effect |
 |------|------|--------|
-| 🟦 | Expand Paddle | Increases paddle width for 10 seconds |
-| 🟥 | Add Life | You have one more live if the remaning lives less than 3|
-| ⚡ | Fast Ball | Increases ball speed by 30% |
+| (src/main/resources/images/paddleLonger.png) | Expand Paddle | Increases paddle width for 10 seconds |
+| (src/main/resources/images/addLife.png) | Add Life | You have one more live if the remaning lives less than 3|
+|(src/main/resources/images/ballFaster.png) | Fast Ball | Increases ball speed by 30% |
 ### Scoring System
 - Normal Brick: 10 points
 - Strong Brick: 25 points
@@ -105,7 +105,7 @@ The game uses multiple threads to ensure smooth performance:
 ### Screenshots
 
 **Main Menu**  
-![Main Menu](docs/screenshots/menu.png)
+![Main Menu](src/main/resources/images/class_diagram.png)
 
 **Gameplay**  
 ![Gameplay](docs/screenshots/gameplay.png)
@@ -116,10 +116,6 @@ The game uses multiple threads to ensure smooth performance:
 **Leaderboard**  
 ![Leaderboard](docs/screenshots/leaderboard.png)
 
-### Video Demo
-[![Video Demo](docs/screenshots/video-thumbnail.png)](docs/demo/gameplay.mp4)
-
-*Full gameplay video is available in `docs/demo/gameplay.mp4`*
 
 ---
 
