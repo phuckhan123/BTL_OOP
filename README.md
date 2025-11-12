@@ -123,8 +123,9 @@ The game uses multiple threads to ensure smooth performance:
 **Leaderboard**  
 ![Leaderboard](docs/screenshots/leaderboard.png)
 
-**Video Demo**
-![Leaderboard](https://www.youtube.com/watch?v=jOCU-lsMj-I)
+## 🎬 Video Demo
+[Click here to watch the demo](https://www.youtube.com/watch?v=jOCU-lsMj-I)
+
 
 ---
 
