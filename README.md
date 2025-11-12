@@ -14,6 +14,15 @@ Group [4] - Class [2526I_INT2204_6]
 ## Description
 This is a classic Arkanoid game developed in Java as a final project for Object-Oriented Programming course. The project demonstrates the implementation of OOP principles and design patterns.
 
+## Architecture Overview
+The project follows an object-oriented architecture inspired by the MVC (Model–View–Controller) pattern:
+
+- **Model:** Contains game logic, entities, and data (Ball, Paddle, Brick, GameData).
+- **View:** Responsible for GUI rendering using JavaFX (GameWindow, MenuUI, HUD).
+- **Controller:** Handles user inputs, event management, and communication between model and view (GameManager, LevelManager).
+
+This architecture ensures separation of concerns, maintainability, and scalability.
+
 **Key features:**
 1. The game is developed using Java 17+ with JavaFX for GUI.
 2. Implements core OOP principles: Encapsulation, Inheritance, Polymorphism, and Abstraction.
@@ -33,14 +42,13 @@ This is a classic Arkanoid game developed in Java as a final project for Object-
 ### Class Diagram
 ![Class Diagram](src/main/resources/images/class_diagram.png)
 
-## Design Patterns Implementation
+## Design Pattern Summary
+| Pattern | Implemented In | Purpose |
+|----------|----------------|----------|
+| **Singleton** | `SoundManager` | Manage all sound effects from a single instance |
+| **Observer** | `GameData`, `GameDataObserver` | Update UI automatically when game state changes |
+| **Factory Method** | `LevelFactory`| Create different types of bricks and levels dynamically |
 
-### 1. Singleton Pattern
-**Used in:** `SoundManager.java`
-
-**Purpose:**: Ensure only one instance exists throughout the application.
-### 2. Observer Pattern
-**Used in:** `GameData.java`
 
 
 **Purpose:**: The Observer Pattern is used to notify game components automatically when certain events occur (e.g., score updates, player health changes, or game state transitions) — helping keep the code modular, flexible, and decoupled.
