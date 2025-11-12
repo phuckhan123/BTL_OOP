@@ -100,9 +100,9 @@ The game uses multiple threads to ensure smooth performance:
 ### Power-ups
 | Icon | Name | Effect |
 |------|------|--------|
-| (src/main/resources/images/paddleLonger.png) | Expand Paddle | Increases paddle width for 10 seconds |
-| (src/main/resources/images/addLife.png) | Add Life | You have one more live if the remaning lives less than 3|
-|(src/main/resources/images/ballFaster.png) | Fast Ball | Increases ball speed by 30% |
+| !(src/main/resources/images/paddleLonger.png) | Expand Paddle | Increases paddle width for 10 seconds |
+| !(src/main/resources/images/addLife.png) | Add Life | You have one more live if the remaning lives less than 3|
+|!(src/main/resources/images/ballFaster.png) | Fast Ball | Increases ball speed by 30% |
 ### Scoring System
 - Normal Brick: 10 points
 - Strong Brick: 25 points
@@ -113,7 +113,7 @@ The game uses multiple threads to ensure smooth performance:
 ### Screenshots
 
 **Main Menu**  
-![Main Menu](src/main/resources/images/class_diagram.png)
+![Main Menu](src/main/resources/images/?.png)
 
 **Gameplay**  
 ![Gameplay](docs/screenshots/gameplay.png)
