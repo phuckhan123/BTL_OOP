@@ -9,68 +9,46 @@
     -fx-background-size: cover;
 }
 
-/*
-  Style cho các nút menu (Vô hình khi bình thường)
-  Bạn sẽ gán class="menu-button" cho các nút của mình
-*/
-.menu-button {
-    /* --- 1. TRẠNG THÁI MẶC ĐỊNH (VÔ HÌNH) --- */
-    -fx-background-color: transparent; /* Nền trong suốt */
-    -fx-border-color: rgba(255, 255, 255, 0.3); /* Viền trắng mờ (để người chơi lờ mờ thấy) */
-    -fx-border-width: 1px;
-    -fx-text-fill: rgba(255, 255, 255, 0.5); /* Chữ trắng mờ */
 
-    /* Hiệu ứng chuyển động mượt */
+.menu-button {
+
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 1px;
+    -fx-text-fill: rgba(255, 255, 255, 0.5);
+
     -fx-transition: all 0.2s ease-in-out;
 }
 
 .menu-button:hover {
-    /* --- 2. KHI DI CHUỘT VÀO (SÁNG LÊN) --- */
-    -fx-border-color: white; /* Viền trắng rõ */
-    -fx-text-fill: white; /* Chữ trắng rõ */
+    -fx-border-color: white;
+    -fx-text-fill: white;
 
-    /* Thêm hiệu ứng hào quang nhẹ */
     -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 10, 0, 0, 0);
 }
 
 .menu-button:pressed {
-    /* --- 3. KHI NHẤN VÀO (SÁNG RỰC) --- */
-    -fx-background-color: white; /* Nền trắng sáng */
-    -fx-text-fill: black; /* Chữ đen để đọc được */
-
-    /* Hào quang sáng rực */
+    -fx-background-color: white;
+    -fx-text-fill: black;
     -fx-effect: dropshadow(gaussian, white, 20, 0.8, 0, 0);
 }
-/** 1. Thanh đỡ (Paddle) **/
-#paddleView {
-    /* Sử dụng dải màu tuyến tính (linear-gradient) từ trên xuống.
-      Tạo cảm giác 3D/kim loại sáng ở trên và tối ở dưới.
-    */
-    -fx-fill: linear-gradient(from 0% 0% to 0% 100%, #d0d0d0, #606060);
 
-    /* Thêm viền đen và bo góc nhẹ cho mềm mại */
+#paddleView {
+    -fx-fill: linear-gradient(from 0% 0% to 0% 100%, #d0d0d0, #606060);
     -fx-stroke: black;
     -fx-stroke-width: 1;
     -fx-arc-width: 10;
     -fx-arc-height: 10;
 }
 
-
-/** 2. Quả bóng (Ball) **/
 #ballView {
-    /*
-      Sử dụng dải màu tỏa tròn (radial-gradient) để tạo giả lập 3D.
-      Tâm là "điểm nóng" (sáng nhất) và mờ dần ra ngoài.
-      'center 30% 30%' -> đặt điểm sáng ở góc trên bên trái
-    */
-    -fx-fill: radial-gradient(
-        center 30% 30%, /* Vị trí điểm sáng */
-        radius 60%,     /* Bán kính của dải màu */
-        #ffffcc,     /* Màu sáng nhất (gần trắng) */
-        #ffcc00      /* Màu vàng chính */
-    );
 
-    /* Thêm 1 đường viền mỏng màu sậm để nổi bật */
+    -fx-fill: radial-gradient(
+        center 30% 30%,
+        radius 60%,
+        #ffffcc,
+        #ffcc00
+    );
     -fx-stroke: #b0a000;
     -fx-stroke-width: 1;
 }

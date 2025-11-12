@@ -8,7 +8,6 @@ public class GameData {
     private int lives;
     private final List<Observer> observers = new ArrayList<>();
 
-    // 🔊 cờ trạng thái thay đổi
     private boolean scoreJustChanged = false;
     private boolean lifeJustLost = false;
     private boolean levelJustWon = false;
