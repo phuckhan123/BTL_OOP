@@ -4,61 +4,14 @@
     -fx-background-size: cover;
 }
 #loginRoot {
+
     -fx-background-image: url("../images/login.jpg");
     -fx-background-size: cover;
 }
 
-#leaderboardRoot {
-   -fx-background-image: url("../images/leaderboardBackground.jpg");
-   -fx-background-size: cover;
-
-}
-.table-view {
-    -fx-background-color: transparent;
-    -fx-control-inner-background: transparent;
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-    -fx-border-color: transparent;
-    -fx-table-cell-border-color: transparent;
-}
-
-.table-view .viewport {
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header-background,
-.table-view .column-header,
-.table-view .filler {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-}
-
-.table-row-cell {
-    -fx-background-color: transparent;
-}
-
-.table-row-cell:odd,
-.table-row-cell:even {
-    -fx-background-color: transparent;
-}
-
-.table-cell {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-alignment: CENTER;
-}
-
-.table-row-cell:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.12);
-}
-
-.table-row-cell:selected {
-    -fx-background-color: rgba(255, 204, 0, 0.25);
-    -fx-text-fill: black;
-}
 
 .menu-button {
+
     -fx-background-color: transparent;
     -fx-border-color: rgba(255, 255, 255, 0.3);
     -fx-border-width: 1px;
@@ -69,50 +22,33 @@
 
 .menu-button:hover {
     -fx-border-color: white;
-    -fx-text-fill: white; /* Chữ trắng rõ */
+    -fx-text-fill: white;
 
-    /* Thêm hiệu ứng hào quang nhẹ */
     -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 10, 0, 0, 0);
 }
 
 .menu-button:pressed {
-    /* --- 3. KHI NHẤN VÀO (SÁNG RỰC) --- */
-    -fx-background-color: white; /* Nền trắng sáng */
-    -fx-text-fill: black; /* Chữ đen để đọc được */
-
-    /* Hào quang sáng rực */
+    -fx-background-color: white;
+    -fx-text-fill: black;
     -fx-effect: dropshadow(gaussian, white, 20, 0.8, 0, 0);
 }
-/** 1. Thanh đỡ (Paddle) **/
-#paddleView {
-    /* Sử dụng dải màu tuyến tính (linear-gradient) từ trên xuống.
-      Tạo cảm giác 3D/kim loại sáng ở trên và tối ở dưới.
-    */
-    -fx-fill: linear-gradient(from 0% 0% to 0% 100%, #d0d0d0, #606060);
 
-    /* Thêm viền đen và bo góc nhẹ cho mềm mại */
+#paddleView {
+    -fx-fill: linear-gradient(from 0% 0% to 0% 100%, #d0d0d0, #606060);
     -fx-stroke: black;
     -fx-stroke-width: 1;
     -fx-arc-width: 10;
     -fx-arc-height: 10;
 }
 
-
-/** 2. Quả bóng (Ball) **/
 #ballView {
-    /*
-      Sử dụng dải màu tỏa tròn (radial-gradient) để tạo giả lập 3D.
-      Tâm là "điểm nóng" (sáng nhất) và mờ dần ra ngoài.
-      'center 30% 30%' -> đặt điểm sáng ở góc trên bên trái
-    */
-    -fx-fill: radial-gradient(
-        center 30% 30%, /* Vị trí điểm sáng */
-        radius 60%,     /* Bán kính của dải màu */
-        #ffffcc,     /* Màu sáng nhất (gần trắng) */
-        #ffcc00      /* Màu vàng chính */
-    );
 
-    /* Thêm 1 đường viền mỏng màu sậm để nổi bật */
+    -fx-fill: radial-gradient(
+        center 30% 30%,
+        radius 60%,
+        #ffffcc,
+        #ffcc00
+    );
     -fx-stroke: #b0a000;
     -fx-stroke-width: 1;
 }

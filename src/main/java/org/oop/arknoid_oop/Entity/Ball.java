@@ -8,12 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-/**
- * Ball backed by an ImageView (loads /images/ball.jpg by default).
- * Coordinates used by the rest of the game use the node's layoutX/layoutY
- * as top-left of the image; several helper methods expose center-based
- * coordinates to match existing controller code.
- */
 public class Ball extends GameObject {
 
     private ImageView imageView;

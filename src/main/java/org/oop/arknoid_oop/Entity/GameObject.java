@@ -6,7 +6,6 @@ import javafx.scene.Node;
 
 public abstract class GameObject {
 
-    // 'view' là hình ảnh đại diện (Rectangle, Circle, v.v.)
     protected Node view;
 
     public GameObject(Node view) {
@@ -17,7 +16,6 @@ public abstract class GameObject {
         return view;
     }
 
-    // Lấy "hộp" bao quanh đối tượng để xét va chạm
     public Bounds getBounds() {
         return view.getBoundsInParent();
     }

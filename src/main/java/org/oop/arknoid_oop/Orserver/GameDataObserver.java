@@ -23,15 +23,13 @@ public class GameDataObserver implements Observer {
 
     @Override
     public void update(GameData gameData) {
-        // Cập nhật UI
         scoreText.setText("⭐ " + gameData.getScore());
 
-        String heart = "\u2764"; // ♥ không bị ô vuông
+        String heart = "\u2764";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < gameData.getLives(); i++) sb.append(heart).append(" ");
         livesText.setText(sb.toString().trim());
 
-        // --- Âm thanh và hiệu ứng ---
         if (gameData.isScoreJustChanged()) {
             SoundManager.getInstance().playSound("brickBreak");
             bounce(scoreText);
@@ -49,7 +47,6 @@ public class GameDataObserver implements Observer {
             SoundManager.getInstance().playSound("gameOver");
         }
 
-        // Màu cảnh báo khi sắp hết mạng
         livesText.setFill(gameData.getLives() <= 1 ? Color.RED : Color.WHITE);
     }
 

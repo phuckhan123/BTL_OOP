@@ -46,7 +46,6 @@ public class PowerUp {
         return imageView.getY() > sceneHeight;
     }
 
-    // ⚙️ Cập nhật: thêm danh sách bóng & root
     public void applyEffect(Paddle paddle, GameData gameData, Ball baseBall,
                             List<Ball> balls, Pane root) {
         switch (type) {

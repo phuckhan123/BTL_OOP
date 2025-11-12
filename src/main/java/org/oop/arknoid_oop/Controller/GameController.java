@@ -54,8 +54,7 @@ public class GameController {
     private boolean leftPressed = false;
     private boolean rightPressed = false;
 
-    // 🔵 CHANGE: bỏ lives và score riêng lẻ → quản lý qua GameData
-    private GameData gameData; // 🟢 NEW
+    private GameData gameData;
 
     private int breakableBrickCount = 0;
     private AnimationTimer gameTimer;
@@ -90,7 +89,6 @@ public class GameController {
         paddle = new Paddle(paddleView, 6.0);
         ball = new Ball(ballImage);
 
-        // 🟢 NEW: Khởi tạo GameData & Observer UI
         gameData = new GameData(3); // 3 mạng ban đầu
         GameDataObserver observer = new GameDataObserver(scoreText, livesText);
         gameData.addObserver(new GameDataObserver(scoreText, livesText));
@@ -101,19 +99,14 @@ public class GameController {
         startGameLoop();
     }
     private void pauseGame() {
-        gameTimer.stop(); // Dừng vòng lặp game
-
-        // ** THAY VÌ: pauseOverlay.setVisible(true); **
-        // Chúng ta sẽ load FXML:
+        gameTimer.stop();
         try {
 
             FXMLLoader loader = new FXMLLoader(ArknoidApplication.class.getResource("pause-menu.fxml"));
             pauseMenuNode = loader.load(); // Tải FXML và lưu Node gốc
-            // Lấy controller của menu pause
             PauseMenuController pauseController = loader.getController();
-            // "Bơm" tham chiếu của GameController (this) vào PauseController
+
             pauseController.setGameController(this);
-            // Thêm menu pause vào màn hình game (chồng lên trên)
             root.getChildren().add(pauseMenuNode);
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,9 +140,7 @@ public class GameController {
             }
 
             // 4. Lấy Stage (cửa sổ) hiện tại.
-            //    (Chúng ta dùng 'root' - AnchorPane chính của GameController để lấy)
             Stage currentStage = (Stage) root.getScene().getWindow();
-
             // 5. Đặt Scene của màn hình Welcome vào Stage
             currentStage.setScene(welcomeScene);
             currentStage.show();
@@ -290,7 +281,6 @@ public class GameController {
         quitToMenu();
     }
 
-    //vong lap chinh
     private void startGameLoop() {
         gameTimer = new AnimationTimer() {
             @Override
@@ -425,7 +415,6 @@ public class GameController {
         String username = DataService.username;
         int finalScore = gameData.getScore();
         if (username != null) {
-            // Chạy DB call trên luồng mới để không làm đơ game
             Task<Void> task = new Task<>() {
                 @Override
                 protected Void call() throws Exception {
